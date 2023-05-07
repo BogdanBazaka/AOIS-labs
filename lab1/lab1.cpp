@@ -96,9 +96,9 @@ int* pryam_bin(int x, int BIT16){
     return Result_Array;
 }
 
-std::vector<int> int_to_direct_code(int number, int size)
+vector<int> direct_code_division(int number, int size)
 {
-    std::vector<int> nums;
+    vector<int> nums;
     int buf = 0;
     int num = abs(number);
     while (num) {
@@ -109,16 +109,16 @@ std::vector<int> int_to_direct_code(int number, int size)
     int length = nums.size();
     for (int i = 0; i < size - length; i++)
         nums.push_back(0);
-    std::reverse(nums.begin(), nums.end());
+    reverse(nums.begin(), nums.end());
     if (number < 0)
         nums[0] = 1;
     return nums;
 }
 
-int direct_code_to_int(std::vector<int> nums)
+int int_code_division(vector<int> nums)
 {
     int number = 0;
-    std::reverse(nums.begin(), nums.end());
+    reverse(nums.begin(), nums.end());
     for (size_t i = 0; i < nums.size() - 1; i++)
         if (nums[i] == 1)
             number += pow(2, i);
@@ -128,11 +128,11 @@ int direct_code_to_int(std::vector<int> nums)
         return number;
 }   
 
-void print_bi_code(std::vector<int>& nums)
+void print_bin(vector<int>& nums)
 {
     for (int i = 0; i < nums.size(); i++)
-        std::cout << nums[i];
-    std::cout << "\n";
+        cout << nums[i];
+        cout << "\n";
 }
 
 int* obr_bin(int* array, int x, int n) {
@@ -171,7 +171,7 @@ int* bin_raznost(int* A1, int* A2, int n1, int n2,int x1, int x2) {
     return Result_Array;
 }
 
-std::vector<int> reverse_code_to_direct(std::vector<int>& nums)
+vector<int> reverse_code_division(vector<int>& nums)
 {
     for (size_t i = 1; i < nums.size(); i++) {
         if (nums[i] == 1)
@@ -182,7 +182,7 @@ std::vector<int> reverse_code_to_direct(std::vector<int>& nums)
     return nums;
 }
 
-std::vector<int> direct_to_reverse_code(std::vector<int>& nums)
+vector<int> to_reverse_code_division(vector<int>& nums)
 {
     for (size_t i = 1; i < nums.size(); i++) {
         if (nums[i] == 1)
@@ -193,7 +193,7 @@ std::vector<int> direct_to_reverse_code(std::vector<int>& nums)
     return nums;
 }
 
-std::vector<int> additional_code_to_direct(std::vector<int>& nums)
+vector<int> additional_to_direct_division(vector<int>& nums)
 {
     for (size_t i = nums.size() - 1; i > 0; i--) {
         if (nums[i] == 1 and (nums[i - 1] == 1 or nums[i - 1] == 0)) {
@@ -205,17 +205,17 @@ std::vector<int> additional_code_to_direct(std::vector<int>& nums)
         else
             nums[i] = 0;
     }
-    return reverse_code_to_direct(nums);
+    return reverse_code_division(nums);
 }
 
-std::vector<int> direct_to_additional_code(std::vector<int>& nums)
+vector<int> direct_to_additional_division(vector<int>& nums)
 {
-    nums = direct_to_reverse_code(nums);
+    nums = to_reverse_code_division(nums);
     if (nums[nums.size() - 1] == 0) {
         nums[nums.size() - 1] = 1;
         return nums;
     }
-    for (size_t i = nums.size() - 1; i > 0; i--) {
+    for (int i = nums.size() - 1; i > 0; i--) {
         if (nums[i - 1] == 0) {
             nums[i] = 0;
             nums[i - 1] = 1;
@@ -227,7 +227,7 @@ std::vector<int> direct_to_additional_code(std::vector<int>& nums)
     return nums;
 }
 
-std::vector<int> addition(std::vector<int> nums1, std::vector<int> nums2)
+vector<int> bin_sum_division(vector<int> nums1,vector<int> nums2)
 {
     std::vector<int> nums;
     bool flag = false;
@@ -259,21 +259,21 @@ std::vector<int> addition(std::vector<int> nums1, std::vector<int> nums2)
     }
     std::reverse(nums.begin(), nums.end());
     if (nums[0] == 1)
-        additional_code_to_direct(nums);
+        additional_to_direct_division(nums);
     return nums;
 }
 
-std::vector<int> bi_sum(std::vector<int> ArrayX1, std::vector<int> ArrayX2)
+vector<int> bi_sum(vector<int> ArrayX1, vector<int> ArrayX2)
 {
     if (ArrayX1[0] == 1 and ArrayX2[0] == 1) {
-        ArrayX1 = direct_to_additional_code(ArrayX1);
-        ArrayX2 = direct_to_additional_code(ArrayX2);
+        ArrayX1 = direct_to_additional_division(ArrayX1);
+        ArrayX2 = direct_to_additional_division(ArrayX2);
     }
     else if (ArrayX2[0] == 1)
-        ArrayX2 = direct_to_additional_code(ArrayX2);
+        ArrayX2 = direct_to_additional_division(ArrayX2);
     else if (ArrayX1[0] == 1)
-        ArrayX1 = direct_to_additional_code(ArrayX1);
-    return addition(ArrayX1, ArrayX2);
+        ArrayX1 = direct_to_additional_division(ArrayX1);
+    return bin_sum_division(ArrayX1, ArrayX2);
 }
 
 int* bin_proizvedenie(int* ArrayX1, int* ArrayX2, int n1, int n2) {
@@ -421,15 +421,15 @@ int main(int argc, char* argv[])
                 Array_x1.push_back(0);
                 Array_x2.push_back(0);
             }
-            Array_x1 = int_to_direct_code(x1, BIT16);
-            Array_x2 = int_to_direct_code(x2, BIT16);
+            Array_x1 = direct_code_division(x1, BIT16);
+            Array_x2 = direct_code_division(x2, BIT16);
             for (int i = 0; i < BIT16; i++) {
                 division_result.push_back(0);
             }
             division_result = bin_division(Array_x1, Array_x2);
             cout << "delenie: " << endl;
-            std::cout << direct_code_to_int(division_result) << "\n";
-            print_bi_code(division_result);
+            std::cout << int_code_division(division_result) << "\n";
+            print_bin(division_result);
             break;
         case 4:
             double d1 = 0.5, d2 = 10.625;
