@@ -1,6 +1,7 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
+#include <tchar.h>
+#include <stdio.h>
 #include <string>
 
 using namespace std;
@@ -12,91 +13,55 @@ struct gl
 };
 
 vector <bool> gen_word();
-void seeword();
-void sortingdictionary();
-void to_the_end();
 gl recursive_func(string, vector <bool>, int, int);
 void matching_search(vector <vector <bool>>, vector <bool>);
 void gap_search(vector <vector <bool>>, vector <bool>, vector <bool>);
-vector<vector<bool>> setofw = { {0,1,0,0,1,0,1,0},
-{0,1,0,0,1,0,0,0},
-{0,0,0,0,0,0,0,0},
-{0,0,0,1,0,0,1,1},
-{0,1,1,1,1,0,1,0},
-{0,0,0,1,0,0,1,0},
-{1,0,0,0,1,0,0,0},
-{0,1,1,1,1,0,0,0},
-{1,0,0,1,0,0,1,1},
-{0,0,1,1,0,1,1,0},
-{0,0,1,0,1,1,0,0},
-{0,0,1,1,0,0,0,0},
-{1,0,0,0,1,1,0,0},
-{0,0,1,0,0,1,0,0},
-{0,0,0,1,0,0,0,1},
-{0,1,0,1,1,0,0,1},
-{1,0,1,0,0,1,0,0},
-{0,1,0,0,1,1,0,0},
-{0,0,0,0,1,1,1,0},
-{1,0,1,1,0,0,0,0} };
+
+
 int main()
 {
-	cout << "Start dictionary:\n";
-	seeword();
-	system("pause");
-	system("cls");
-	sortingdictionary();
-	cout << "Sorted dictionary (increasing):\n";
-	seeword();
-	system("pause");
-	system("cls");
-	to_the_end();
-	cout << "Sorted dictionary (decreasing):\n";
-	seeword();
-}
-
-
-void sortingdictionary() {
-	setofw = { {0,0,0,0,0,0,0,0},
-	{0,0,0,0,1,1,1,0},
-	{0,0,0,1,0,0,0,1},
-	{0,0,0,1,0,0,1,0},
-	{0,0,0,1,0,0,1,1},
-	{0,0,1,0,0,1,0,0},
-	{0,0,1,0,1,1,0,0},
-	{0,0,1,1,0,0,0,0},
-	{0,0,1,1,0,1,1,0},
-	{0,1,0,0,1,0,0,0},
-	{0,1,0,0,1,0,1,0},
-	{0,1,0,0,1,1,0,0},
-	{0,1,0,1,1,0,0,1},
-	{0,1,1,1,1,0,0,0},
-	{0,1,1,1,1,0,1,0},
-	{1,0,0,0,1,0,0,0},
-	{1,0,0,0,1,1,0,0},
-	{1,0,0,1,0,0,1,1},
-	{1,0,1,0,0,1,0,0},
-	{1,0,1,1,0,0,0,0} };
-
-
-}
-
-void to_the_end() {
-	vector<bool> temp;
-	for (int i = 0; i < 10; i++) {
-		temp = setofw[i];
-		setofw[i] = setofw[19 - i];
-		setofw[19 - i] = temp;
-	}
-}
-
-void seeword() {
-	for (int i = 0; i < 20; i++) {
-		cout << '[' << i + 1 << "] = ";
-		for (int j = 0; j < 8; j++) {
-			cout << setofw[i][j];
+	size_t counter = 0;
+	vector <vector <bool>> book;
+	for (size_t each_word = 0; each_word < 50; each_word++)
+	{
+		vector <bool> boof = gen_word();
+		book.push_back(boof);
+		cout << "[" << each_word << "] ";
+		for (size_t each_letter = 0; each_letter < boof.size(); each_letter++)
+		{
+			cout << boof[each_letter];
 		}
 		cout << endl;
 	}
+	cout << endl;
+
+	string word;
+	size_t mask;
+	cout << "Enter a word to search: ";
+	cin >> word;
+	cout << "Enter mask: ";
+	cin >> mask;
+	for (size_t each_word = 0; each_word < book.size(); each_word++)
+	{
+		gl temp = recursive_func(word, book[each_word], 0, mask);
+		cout << "[" << each_word << "] " << temp.g << " " << temp.l << endl;
+	}
+
+	size_t number;
+	cout << endl << "Enter a number of word: ";
+	cin >> number;
+	matching_search(book, book[number]);
+	cout << endl;
+	size_t high;
+	size_t low;
+
+	cout << "Enter higher & lower border words numbers: " << endl;
+	cin >> high;
+	cin >> low;
+	gap_search(book, book[high], book[low]);
+
+	system("pause");
+	return 0;
 }
 
 vector <bool> gen_word()
