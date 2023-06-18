@@ -8,9 +8,9 @@
 
 using namespace std;
 
-vector<string> fragmentationAND(string);
+vector<string> fragmentAND(string);
 
-vector<string> fragmentationAND2(string);
+vector<string> fragmentAND2(string);
 
 string checkAreNeighboursSDNF(string, string);
 
@@ -44,7 +44,7 @@ string MCClassSKNF(string, string);
 
 vector<vector<int>> makeDiagram(int);
 
-int GrayCode(unsigned int);
+unsigned int GrayCode(unsigned int);
 
 string twoten(int, int);
 
