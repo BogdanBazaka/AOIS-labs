@@ -12,56 +12,56 @@ vector<string> fragmentAND(string);
 
 vector<string> fragmentAND2(string);
 
-string checkAreNeighboursSDNF(string, string);
+string AreNeighSDNF(string, string);
 
-vector<string> fragmentationOR(string);
+vector<string> fragmentOR(string);
 
-string gluingSDNF(string);
+string gluiSDNF(string);
 
-string reverse(string);
+string revers(string);
 
-bool find(vector<string>, string);
+bool tofind(vector<string>, string);
 
-bool checkExcess(vector<string>, int);
+bool Excess(vector<string>, int);
 
-string toTDF(string);
+string TDFfunc(string);
 
-string checkAreNeighboursSKNF(string, string);
+string AreNeighSKNF(string, string);
 
-string gluingSKNF(string);
+string gluiSKNF(string);
 
-bool checkExcess2(vector<string>, int);
+bool Excess2(vector<string>, int);
 
-string toTKF(string);
+string TKFfunc(string);
 
-bool isInclude(string, string);
+bool Including(string, string);
 
-string MCClassSDNF(string, string);
+string MClassSDNF(string, string);
 
-bool isInclude2(string, string);
+bool including2(string, string);
 
-string MCClassSKNF(string, string);
+string MClassSKNF(string, string);
 
-vector<vector<int>> makeDiagram(int);
+vector<vector<int>> DrawDiagr(int);
 
-unsigned int GrayCode(unsigned int);
+unsigned int GrCod(unsigned int);
 
 string twoten(int, int);
 
-bool isInclude3(string, string);
+bool including3(string, string);
 
-string FindTDF(string, string);
+string SearchTDF(string, string);
 
-vector<string> normal(vector<string>);
+vector<string> norm(vector<string>);
 
-string WeichCarno(string, int);
+string Carno(string, int);
 
-bool isInclude4(string, string);
+bool including4(string, string);
 
-string FindTKF(string, string);
+string SearchTKF(string, string);
 
-vector<string> normal2(vector<string>);
+vector<string> norm2(vector<string>);
 
-string WeichCarno2(string, int);
+string CarnoTwo(string, int);
 
 #endif

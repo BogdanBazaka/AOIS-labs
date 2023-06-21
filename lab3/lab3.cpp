@@ -11,30 +11,30 @@ int main()
 	string SDNF = "x1*!x2*!x3+!x1*!x2*!x3+!x1*x2*!x3+!x1*x2*x3";
 	string SKNF = "(!x1+!x2+!x3)*(x1+x2+!x3)*(!x1+x2+!x3)*(!x1+!x2+x3)";
 
-	string DNF = gluingSDNF(SDNF);
+	string DNF = gluiSDNF(SDNF);
 	cout << "\nDNF: " << DNF << "\n\nTDF: ";
-	string TDF = toTDF(DNF);
+	string TDF = TDFfunc(DNF);
 	cout << TDF << "\n\nKNF: ";
 
-	string KNF = gluingSKNF(SKNF);
+	string KNF = gluiSKNF(SKNF);
 	cout << KNF << "\n\nTKF: ";
-	string TKF = toTKF(KNF);
+	string TKF = TKFfunc(KNF);
 	cout << TKF << "\n\n";
 
-	for (int i = 0; i < 80; cout << '.', i++);
+	for (int iter = 0; iter < 80; cout << '.', iter++);
 	cout << "\n\n";
 
-	TDF = MCClassSDNF(SDNF, DNF);
+	TDF = MClassSDNF(SDNF, DNF);
 	cout << "\n\n" << TDF << "\n\n";
-	TKF = MCClassSKNF(SKNF, KNF);
+	TKF = MClassSKNF(SKNF, KNF);
 	cout << "\n\n" << TKF << "\n\n";
 
 	for (int i = 0; i < 80; cout << '.', i++);
 	cout << "\n\n";
 
-	TDF = WeichCarno(SDNF, 3);
+	TDF = Carno(SDNF, 3);
 	cout << "\n\n" << TDF << "\n\n";
-	TKF = WeichCarno2(SKNF, 3);
+	TKF = CarnoTwo(SKNF, 3);
 	cout << "\n\n" << TKF << '\n';
 
 	system("pause > NUL");
