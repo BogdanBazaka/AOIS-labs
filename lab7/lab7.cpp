@@ -15,7 +15,7 @@ struct WordComparison
     bool lesser;
 };
 
-vector<bool> generateWord();
+vector<bool> genWord();
 WordComparison recursiveFunction(string, vector<bool>, int, int);
 void searchForMatches(vector<vector<bool>>, vector<bool>);
 void searchWithGap(vector<vector<bool>>, vector<bool>, vector<bool>);
@@ -24,78 +24,64 @@ int main()
 {
     srand(time(0));
     size_t count = 0;
-    vector<vector<bool>> book;
-    for (size_t eachWord = 0; eachWord < 50; eachWord++)
+    vector<vector<bool>> boook;
+    for (size_t iter = 0; iter < 50; iter++)
     {
-        vector<bool> buffer = generateWord();
-        book.push_back(buffer);
-        cout << "[" << eachWord << "] ";
-        for (size_t eachLetter = 0; eachLetter < buffer.size(); eachLetter++)
+        vector<bool> buffer = genWord();
+        boook.push_back(buffer);
+        cout << "[" << iter << "] ";
+        for (size_t jiter = 0; jiter < buffer.size(); jiter++)
         {
-            cout << buffer[eachLetter];
+            cout << buffer[jiter];
         }
         cout << endl;
     }
     cout << endl;
 
-    string word;
-    size_t mask;
+    string wordd;
+    size_t msk;
     cout << "Enter a word to search: ";
-    cin >> word;
+    cin >> wordd;
     cout << "Enter mask: ";
-    cin >> mask;
-    for (size_t eachWord = 0; eachWord < book.size(); eachWord++)
+    cin >> msk;
+    for (size_t iter = 0; iter < boook.size(); iter++)
     {
-        WordComparison temp = recursiveFunction(word, book[eachWord], 0, mask);
-        cout << "[" << eachWord << "] " << temp.greater << " " << temp.lesser << endl;
+        WordComparison temp = recursiveFunction(wordd, boook[iter], 0, msk);
+        cout << "[" << iter << "] " << temp.greater << " " << temp.lesser << endl;
     }
 
     size_t number;
     cout << endl << "Enter a number of word: ";
     cin >> number;
-    searchForMatches(book, book[number]);
+    searchForMatches(boook, boook[number]);
     cout << endl;
-    size_t high;
-    size_t low;
+    size_t higher;
+    size_t lowest;
 
     cout << "Enter higher & lower border words numbers: " << endl;
-    cin >> high;
-    cin >> low;
-    searchWithGap(book, book[high], book[low]);
+    cin >> higher;
+    cin >> lowest;
+    searchWithGap(boook, boook[higher], boook[lowest]);
 
     system("pause");
     return 0;
 }
 
-vector<bool> generateWord()
-{
-    std::vector<bool> output;
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<int> distribution(0, 1);
-    for (size_t i = 0; i < 10; ++i)
-    {
-        output.push_back(distribution(gen));
-    }
-
-    return output;
-}
-
-WordComparison recursiveFunction(string arg, vector<bool> word, int iter, int mask)
+WordComparison recursiveFunction(string args, vector<bool> woord, int iter, int msk)
 {
     WordComparison temis;
     WordComparison temies1;
-    if (iter + 1 == static_cast<int>(word.size()) - mask)
+    if (iter + 1 == static_cast<int>(woord.size()) - msk)
     {
         temies1.greater = false;
         temies1.lesser = false;
     }
     else
     {
-        temies1 = recursiveFunction(arg, word, iter + 1, mask);
+        temies1 = recursiveFunction(args, woord, iter + 1, msk);
     }
 
-    if (temies1.greater || (arg[iter] == '0' && word[iter] == 1 && !temies1.lesser))
+    if (temies1.greater || (args[iter] == '0' && woord[iter] == 1 && !temies1.lesser))
     {
         temis.greater = true;
     }
@@ -104,7 +90,7 @@ WordComparison recursiveFunction(string arg, vector<bool> word, int iter, int ma
         temis.greater = false;
     }
 
-    if (temies1.lesser || (arg[iter] == '1' && word[iter] == 0 && !temies1.greater))
+    if (temies1.lesser || (args[iter] == '1' && woord[iter] == 0 && !temies1.greater))
     {
         temis.lesser = true;
     }
@@ -116,73 +102,87 @@ WordComparison recursiveFunction(string arg, vector<bool> word, int iter, int ma
     return temis;
 };
 
-void searchForMatches(vector<vector<bool>> book, vector<bool> word)
+vector<bool> genWord()
 {
-    vector<vector<bool>> bestMatches;
-    vector<size_t> bestMatchNumbers;
-    size_t bestMatchDischarge = 0;
-    size_t currentBestMatchDischarge;
-    for (size_t eachWord = 0; eachWord < book.size(); eachWord++)
+    std::vector<bool> outp;
+    std::random_device rdd;
+    std::mt19937 gener(rdd());
+    std::uniform_int_distribution<int> distrib(0, 1);
+    for (size_t i = 0; i < 10; ++i)
     {
-        if (word != book[eachWord])
+        outp.push_back(distrib(gener));
+    }
+
+    return outp;
+}
+
+void searchForMatches(vector<vector<bool>> boook, vector<bool> slovo)
+{
+    vector<vector<bool>> thebestM;
+    vector<size_t> CountOfBestMatches;
+    size_t DischargeTheBestM = 0;
+    size_t BestMDischargeCurr;
+    for (size_t iter = 0; iter < boook.size(); iter++)
+    {
+        if (slovo != boook[iter])
         {
-            currentBestMatchDischarge = 0;
-            for (size_t eachLetter = 0; eachLetter < word.size(); eachLetter++)
+            BestMDischargeCurr = 0;
+            for (size_t jiter = 0; jiter < slovo.size(); jiter++)
             {
-                if (word[eachLetter] == book[eachWord][eachLetter])
+                if (slovo[jiter] == boook[iter][jiter])
                 {
-                    currentBestMatchDischarge = eachLetter + 1;
+                    BestMDischargeCurr = jiter + 1;
                 }
                 else
                 {
-                    eachLetter = book[eachWord].size() + 1;
+                    jiter = boook[iter].size() + 1;
                 }
             }
-            if (currentBestMatchDischarge > bestMatchDischarge)
+            if (BestMDischargeCurr > DischargeTheBestM)
             {
-                bestMatchDischarge = currentBestMatchDischarge;
-                bestMatchNumbers.clear();
-                bestMatches.clear();
-                bestMatchNumbers.push_back(eachWord);
-                bestMatches.push_back(book[eachWord]);
+                DischargeTheBestM = BestMDischargeCurr;
+                CountOfBestMatches.clear();
+                thebestM.clear();
+                CountOfBestMatches.push_back(iter);
+                thebestM.push_back(boook[iter]);
             }
-            else if (currentBestMatchDischarge == bestMatchDischarge)
+            else if (BestMDischargeCurr == DischargeTheBestM)
             {
-                bestMatchNumbers.push_back(eachWord);
-                bestMatches.push_back(book[eachWord]);
+                CountOfBestMatches.push_back(iter);
+                thebestM.push_back(boook[iter]);
             }
         }
     }
 
-    for (size_t eachWord = 0; eachWord < bestMatches.size(); eachWord++)
+    for (size_t iter = 0; iter < thebestM.size(); iter++)
     {
-        cout << "[" << bestMatchNumbers[eachWord] << "] ";
-        for (size_t eachLetter = 0; eachLetter < bestMatches[eachWord].size(); eachLetter++)
+        cout << "[" << CountOfBestMatches[iter] << "] ";
+        for (size_t eachLetter = 0; eachLetter < thebestM[iter].size(); eachLetter++)
         {
-            cout << bestMatches[eachWord][eachLetter];
+            cout << thebestM[iter][eachLetter];
         }
         cout << endl;
     }
 
-    cout << "Max matches searched: " << bestMatchDischarge << endl;
+    cout << "Max matches searched: " << DischargeTheBestM << endl;
 }
 
-void searchWithGap(vector<vector<bool>> book, vector<bool> high, vector<bool> low)
+void searchWithGap(vector<vector<bool>> boook, vector<bool> higher, vector<bool> lowest)
 {
-    for (size_t eachWord = 0; eachWord < book.size(); eachWord++)
+    for (size_t iter = 0; iter < boook.size(); iter++)
     {
         string times = "";
-        for (size_t eachLetter = 0; eachLetter < book[eachWord].size(); eachLetter++)
+        for (size_t jiter = 0; jiter < boook[iter].size(); jiter++)
         {
-            times += to_string(book[eachWord][eachLetter]);
+            times += to_string(boook[iter][jiter]);
         }
-        if (recursiveFunction(times, high, 0, 9).greater == 1 &&
-            recursiveFunction(times, low, 0, 9).lesser == 0)
+        if (recursiveFunction(times, higher, 0, 9).greater == 1 &&
+            recursiveFunction(times, lowest, 0, 9).lesser == 0)
         {
-            cout << "[" << eachWord << "] ";
-            for (size_t iter = 0; iter < book[eachWord].size(); iter++)
+            cout << "[" << iter << "] ";
+            for (size_t iter = 0; iter < boook[iter].size(); iter++)
             {
-                cout << book[eachWord][iter];
+                cout << boook[iter][iter];
             }
             cout << endl;
         }
